@@ -107,9 +107,15 @@ namespace osuOverlay
 
         private bool Inject(bool showErrors = false)
         {
+            _logger?.Log("Adding ingameOverlay to osu!...", LogLevel.Basic);
+
             DllInjector dllInjector = DllInjector.GetInstance;
             var result = dllInjector.Inject("osu!", GetFullDllLocation());
-            if (result != DllInjectionResult.Success)
+            if (result == DllInjectionResult.Success)
+            {
+                _logger?.Log("Added ingameOverlay to osu!", LogLevel.Basic);
+            }
+            else
             {
                 string message = "";
                 switch (result)
